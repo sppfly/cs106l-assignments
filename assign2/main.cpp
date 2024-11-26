@@ -18,7 +18,7 @@
 
 #include "utils.h"
 
-std::string kYourName = "Nova xxx"; // Don't forget to change this!
+std::string kYourName = "Nova M"; // Don't forget to change this!
 
 /**
  * Takes in a file name and returns a set containing all of the applicant names
