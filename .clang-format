@@ -1,0 +1,25 @@
+# .clang-format
+
+# Start with a base style (e.g., LLVM, Google, Chromium, Mozilla, WebKit)
+# This provides defaults for many unspecified options. LLVM is a common choice.
+BasedOnStyle: LLVM
+
+# --- Indentation Settings ---
+
+# Use tabs for indentation, spaces for alignment.
+# Other options: Never, ForContinuationAndIndentation, Always
+UseTab: ForIndentation
+
+# Set the width for indentation (used when UseTab is ForIndentation or Never).
+IndentWidth: 4
+
+# Set the visual width of a tab character.
+# Important for alignment when UseTab is not 'Never'.
+TabWidth: 4
+
+# --- Other common options you might want to consider ---
+# Language: Cpp
+# Standard: Cpp11 # Or Cpp14, Cpp17, Cpp20, Auto
+# ColumnLimit: 80 # Or 100, 120, 0 (for no limit)
+# AllowShortFunctionsOnASingleLine: None # Or InlineOnly, Empty, All
+# ... many more options available

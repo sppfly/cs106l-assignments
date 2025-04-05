@@ -13,8 +13,10 @@
 #include <iostream>
 #include <queue>
 #include <ranges>
+#include <sstream>
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 #include "utils.h"
 
@@ -33,32 +35,40 @@ std::string kYourName = "Nova M"; // Don't forget to change this!
  * sure to also change the corresponding functions in `utils.h`.
  */
 std::unordered_set<std::string> get_applicants(std::string filename) {
-  std::unordered_set<std::string> res{};
-  std::ifstream file{"students.txt"};
-  if (!file.is_open()) {
-    std::cerr << "error opening file" << std::endl;
-    std::terminate();
-  }
-  std::string line;
+	std::unordered_set<std::string> res{};
+	std::ifstream file{filename};
+	if (!file.is_open()) {
+		std::cerr << "error opening file" << '\n';
+		std::terminate();
+	}
+	std::string line;
 
-  while (std::getline(file, line)) {
-    res.insert(line);
-  }
-  return res;
+	while (std::getline(file, line)) {
+		res.insert(line);
+	}
+	return res;
 }
 
 std::string get_initial(const std::string name) {
 
-  auto initials = name 
-      | std::ranges::views::split(' ') // Split into words
-      | std::ranges::views::transform([](auto &&word) {
-          return *word.begin(); // Get the first character of each word
-        });
-  std::string result;
-  for (char initial : initials) {
-    result += initial;
-  }
-  return result;
+	// auto initials = name
+	//     | std::ranges::views::split(' ') // Split into words
+	//     | std::ranges::views::transform([](auto &&word) {
+	//         return *word.begin(); // Get the first character of each word
+	//       });
+	// std::string result;
+	// for (char initial : initials) {
+	//   result += initial;
+	// }
+	std::string result;
+	std::string word;
+	std::vector<std::string> words;
+	std::stringstream ss{name};
+	while (std::getline(ss, word, ' ')) {
+		result += word[0];
+	}
+
+	return result;
 }
 
 /**
@@ -72,17 +82,17 @@ std::string get_initial(const std::string name) {
  */
 std::queue<const std::string *>
 find_matches(std::string name, std::unordered_set<std::string> &students) {
-  std::queue<const std::string *> res{};
-  std::string to_match = get_initial(name);
-  std::cout << to_match << std::endl;
+	std::queue<const std::string *> res{};
+	std::string to_match = get_initial(name);
+	std::cout << to_match << '\n';
 
-  for (auto &&student : students) {
-    auto init = get_initial(student);
-    if (to_match == init) {
-      res.push(&student);
-    }
-  }
-  return res;
+	for (auto &&student : students) {
+		auto init = get_initial(student);
+		if (to_match == init) {
+			res.push(&student);
+		}
+	}
+	return res;
 }
 
 /**
@@ -97,11 +107,10 @@ find_matches(std::string name, std::unordered_set<std::string> &students) {
  *                Will return "NO MATCHES FOUND." if `matches` is empty.
  */
 std::string get_match(std::queue<const std::string *> &matches) {
-  if (matches.empty()) {
-    return "NO MATCHES FOUND.";
-  } else {
-    return *matches.front();
-  }
+	if (matches.empty()) {
+		return "NO MATCHES FOUND.";
+	}
+	return *matches.front();
 }
 
 /* #### Please don't remove this line! #### */

@@ -1,0 +1,23 @@
+CompileFlags:
+  Add: [-std=c++2b]  # 'c++2b' is the current Clang flag for C++26
+
+Diagnostics:
+  ClangTidy:
+    Add: [
+      modernize-*,
+      bugprone-*,
+      performance-*,
+      readability-*,
+      misc-*,
+      cppcoreguidelines-*,
+      portability-*,
+    ]
+    Remove: [
+      modernize-use-trailing-return-type,  # Optional: remove rules you don’t want
+    ]
+    CheckOptions:
+      readability-identifier-naming.VariableCase: lower_case
+      cppcoreguidelines-owning-memory: true
+
+Index:
+  StandardLibrary: Yes
