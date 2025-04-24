@@ -2,7 +2,7 @@
 
 # Start with a base style (e.g., LLVM, Google, Chromium, Mozilla, WebKit)
 # This provides defaults for many unspecified options. LLVM is a common choice.
-BasedOnStyle: LLVM
+BasedOnStyle: WebKit 
 
 # --- Indentation Settings ---
 
@@ -23,3 +23,10 @@ TabWidth: 4
 # ColumnLimit: 80 # Or 100, 120, 0 (for no limit)
 # AllowShortFunctionsOnASingleLine: None # Or InlineOnly, Empty, All
 # ... many more options available
+
+
+AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveMacros: true
+BreakBeforeBraces: Attach
+ColumnLimit: 0
