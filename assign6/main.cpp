@@ -30,17 +30,17 @@ struct Course {
 		return title == other.title && number_of_units == other.number_of_units && quarter == other.quarter;
 	}
 };
+;
 
 class CourseDatabase {
 public:
 	CourseDatabase(std::string filename) {
 		auto lines = read_lines(filename);
-		std::transform(lines.begin(),
-		    lines.end(),
+		std::ranges::transform(lines,
 		    std::back_inserter(courses),
 		    [](std::string line) {
 			    auto parts = split(line, ',');
-			    return Course { .title=parts[0], .number_of_units=parts[1], .quarter=parts[2] };
+			    return Course { .title = parts[0], .number_of_units = parts[1], .quarter = parts[2] };
 		    });
 	}
 
@@ -74,14 +74,17 @@ int main(int argc, char* argv[]) {
 
 	if (argc == 2) {
 		CourseDatabase db("autograder/courses.csv");
-		auto           course = db.find_course(argv[1]);
+		auto           op_course = db.find_course(argv[1]);
 
 		/********************************************************
 		STUDENT_TODO: Populate the output string with the right information to print
 		Please pay special attention to the README here
 		********************************************************/
 
-		std::string output = course.and_then().or_else().value();
+		std::string output = op_course
+		                         .transform([](auto& course) { return "Found course: " + course.title + "," + course.number_of_units + "," + course.quarter; })
+		                         .or_else([]() { return std::optional<std::string>("Course not found."); })
+		                         .value();
 		/* STUDENT_TODO */
 
 		/********************************************************
